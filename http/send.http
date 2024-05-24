@@ -1,0 +1,12 @@
+### Dooray message send
+POST http://localhost:8080/notification-api/issue/dooray
+Content-Type: application/json
+
+{
+  "sender": "test",
+  "message": "test message"
+}
+
+### Dooray message send
+POST http://localhost:8080/notification-api/report/email
+Content-Type: application/json
