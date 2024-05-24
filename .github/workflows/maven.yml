@@ -27,6 +27,32 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Set HookUrl & Email property
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application.yml
+      env:
+        spring.mail.username: ${{ secrets.MYSQL_USERNAME }}
+        spring.mail.password: ${{ secrets.MAIL_PASSWORD }}
+        dooray.hookUrl: ${{ secrets.DOORAY_HOOK_URL }}
+
+    - name: Set db.Yml
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application-db.yml
+      env:
+        spring.datasource.url: ${{ secrets.MYSQL_URL }}
+        spring.datasource.username: ${{ secrets.MYSQL_USERNAME }}
+        spring.datasource.password: ${{ secrets.MYSQL_PASSWORD }}
+
+    - name: Set eureka url
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application-prod.yml
+      env:
+        eureka.client.service-url.defaultZone: ${{ secrets.EUREKA_URL }}
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 

@@ -1,0 +1,18 @@
+dooray:
+  hookUrl:
+
+spring:
+  profiles:
+    active: prod
+    include: db
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username:
+    password:
+    port: '587'
