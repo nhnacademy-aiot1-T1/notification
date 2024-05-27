@@ -7,5 +7,5 @@ public interface NotificationService {
 
   <T> CommonResponse<T> sendToDooray(NotificationRequest request);
 
-  <T> CommonResponse<T> sendToEmail();
+  <T> CommonResponse<T> sendToEmail() throws Exception;
 }

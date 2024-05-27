@@ -7,6 +7,6 @@ Content-Type: application/json
   "message": "test message"
 }
 
-### Dooray message send
+### email message send
 POST http://localhost:8080/notification-api/report/email
 Content-Type: application/json

@@ -1,0 +1,31 @@
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: 'true'
+    fetch-registry: 'true'
+    service-url:
+      defaultZone:
+  instance:
+    prefer-ip-address: 'true'
+
+spring:
+  jpa:
+    open-in-view: 'false'
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        use_sql_comments: 'true'
+        format_sql: 'true'
+        show_sql: 'true'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: '2000'
+      connection-test-query: SELECT 1
+  application:
+    name: account-service

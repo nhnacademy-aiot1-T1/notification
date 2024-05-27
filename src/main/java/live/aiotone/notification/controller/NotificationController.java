@@ -21,7 +21,7 @@ public class NotificationController {
   }
 
   @PostMapping("/report/email")
-  public <T> CommonResponse<T> sendToEmail() {
+  public <T> CommonResponse<T> sendToEmail() throws Exception {
     return notificationService.sendToEmail();
   }
 
