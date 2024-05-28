@@ -35,7 +35,7 @@ jobs:
       env:
         spring.mail.username: ${{ secrets.MAIL_USERNAME }}
         spring.mail.password: ${{ secrets.MAIL_PASSWORD }}
-        dooray.hookUrl: ${{ secrets.DOORAY_HOOK_URL }}
+        message.dooray.hook-url: ${{ secrets.DOORAY_HOOK_URL }}
 
     - name: Set db.Yml
       uses: microsoft/variable-substitution@v1

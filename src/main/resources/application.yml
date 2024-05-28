@@ -1,5 +1,6 @@
-dooray:
-  hookUrl:
+message:
+  dooray:
+    hook-url:
 
 spring:
   profiles:

@@ -37,7 +37,7 @@ public class NotificationServiceImpl implements NotificationService {
   private final JavaMailSender javaMailSender;
   private final DoorayHookSender doorayHookSender;
   private final SpringTemplateEngine templateEngine;
-    private final MonitoringAdapter monitoringAdapter;
+  private final MonitoringAdapter monitoringAdapter;
 
   private final AccountRepository accountRepository;
 
@@ -50,6 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
               .text(request.getMessage())
               .build()
       );
+      log.info("Dooray : Bot-%s, Text-%s", request.getSender(), request.getMessage());
     } catch (Exception e) {
       throw new DoorayHookSenderSendException(e.getMessage());
     }
@@ -62,7 +63,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     List<Account> admins = accountRepository.findAllByRole(AccountRole.ADMIN);
     if (admins.isEmpty()) {
-      return CommonResponse.success(null, "no admin account");
+      log.info("등록된 이메일이 존재하지 않습니다");
+      return CommonResponse.success(null, "there are not admin emails");
     }
     for (Account admin : admins) {
       if (admin.getEmail() == null) {
@@ -73,6 +75,7 @@ public class NotificationServiceImpl implements NotificationService {
       mimeMessage.setText(getContent(), "utf-8", "html");
 
       javaMailSender.send(mimeMessage);
+      log.info("Send Email : To-"+admin.getEmail());
     }
     return CommonResponse.success(null, "report sent to Email successfully");
   }
@@ -115,7 +118,6 @@ public class NotificationServiceImpl implements NotificationService {
     String donutChartUrl = createDonutChartUrl(weekTotalRate);
     String barChartUrl = createBarChartUrl(runningRateList);
 
-
     context.setVariable("donutChartUrl", donutChartUrl);
     context.setVariable("barChartUrl", barChartUrl);
     context.setVariable("errorLogs", logList);
@@ -130,8 +132,6 @@ public class NotificationServiceImpl implements NotificationService {
         + weekTotalRate
         + "], backgroundColor: '#8cabd9' }] },\n"
         + "}";
-
-    log.error(jsonChartData);
 
     String encodedChartData = URLEncoder.encode(jsonChartData, StandardCharsets.UTF_8);
     return "https://quickchart.io/chart?bkg=white&c=" + encodedChartData;
@@ -161,8 +161,6 @@ public class NotificationServiceImpl implements NotificationService {
         + "    ]\n"
         + "  }\n"
         + "}";
-
-    log.error(jsonChartData);
 
     String encodedChartData = URLEncoder.encode(jsonChartData, StandardCharsets.UTF_8);
     return "https://quickchart.io/chart?bkg=white&c=" + encodedChartData;
