@@ -33,7 +33,7 @@ jobs:
       with:
         files: ./src/main/resources/application.yml
       env:
-        spring.mail.username: ${{ secrets.MYSQL_USERNAME }}
+        spring.mail.username: ${{ secrets.MAIL_USERNAME }}
         spring.mail.password: ${{ secrets.MAIL_PASSWORD }}
         dooray.hookUrl: ${{ secrets.DOORAY_HOOK_URL }}
 
