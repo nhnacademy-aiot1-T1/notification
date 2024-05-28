@@ -6,8 +6,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MotorRunningRateDto {
-  private final LocalDateTime timestamp;
-  private final Double rate;
-
+public class LogDto {
+  private Long motorId;
+  private String motorName;
+  private String sensorType;
+  private Double score;
+  private LocalDateTime time;
 }

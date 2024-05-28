@@ -3,7 +3,6 @@ package live.aiotone.notification.service;
 import com.nhn.dooray.client.DoorayHook;
 import com.nhn.dooray.client.DoorayHookSender;
 import com.nhnacademy.common.dto.CommonResponse;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
@@ -13,18 +12,16 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import live.aiotone.notification.adapter.MonitoringAdapter;
+import live.aiotone.notification.dto.LogDto;
 import live.aiotone.notification.dto.MotorRunningRateDto;
 import live.aiotone.notification.dto.NotificationRequest;
 import live.aiotone.notification.entity.Account;
-import live.aiotone.notification.entity.SensorScore;
 import live.aiotone.notification.entity.enumfield.AccountRole;
 import live.aiotone.notification.exception.DoorayHookSenderSendException;
 import live.aiotone.notification.repository.AccountRepository;
-import live.aiotone.notification.repository.SensorScoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -43,7 +40,6 @@ public class NotificationServiceImpl implements NotificationService {
     private final MonitoringAdapter monitoringAdapter;
 
   private final AccountRepository accountRepository;
-  private final SensorScoreRepository sensorScoreRepository;
 
   @Override
   public <T> CommonResponse<T> sendToDooray(NotificationRequest request) {
@@ -101,31 +97,28 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   private String getContent() {
-    List<MotorRunningRateDto> runningRateList = monitoringAdapter.getMotorRunningRate("week")
-        .getData().getRates();
-    List<Double> rates = runningRateList.stream().map(dto -> Math.round(dto.getRate() * 10) / 10.0)
-        .collect(Collectors.toList());
+    Context context = new Context();
 
-    List<SensorScore> sensorScores = sensorScoreRepository.findAllByScoreLessThan(
-        BigDecimal.valueOf(100));
+    context.setVariable("week", getLastWeek(LocalDate.now().minusWeeks(1)));
+
+    List<MotorRunningRateDto> runningRateList = monitoringAdapter.getMotorRunningRate("WEEK")
+        .getData().getRates();
+
+    List<LogDto> logList = monitoringAdapter.getLogs(0, 10).getData().getLogs();
 
     double weekTotalRate = 0;
     for (MotorRunningRateDto runningRate : runningRateList) {
       weekTotalRate += runningRate.getRate();
     }
-    weekTotalRate = Math.round(weekTotalRate / 7 * 10) / 10.0;
+    weekTotalRate = Math.round(weekTotalRate / runningRateList.size() * 10) / 10.0;
 
     String donutChartUrl = createDonutChartUrl(weekTotalRate);
     String barChartUrl = createBarChartUrl(runningRateList);
 
-    Context context = new Context();
 
     context.setVariable("donutChartUrl", donutChartUrl);
     context.setVariable("barChartUrl", barChartUrl);
-    context.setVariable("week", getLastWeek(LocalDate.now().minusWeeks(1)));
-    context.setVariable("weekTotalRate", weekTotalRate);
-    context.setVariable("motorRunningRateList", rates);
-    context.setVariable("anomalyScoreList", sensorScores);
+    context.setVariable("errorLogs", logList);
 
     return templateEngine.process("report", context);
   }
@@ -150,7 +143,7 @@ public class NotificationServiceImpl implements NotificationService {
     List<Double> data = new ArrayList<>();
 
     for (MotorRunningRateDto dataPoint : motorRunningRateList) {
-      labels.add(dataPoint.getTimestamp().toString());
+      labels.add(dataPoint.getTimestamp().toLocalDate().toString());
       data.add(Math.round(dataPoint.getRate() * 10) / 10.0);
     }
 

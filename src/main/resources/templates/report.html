@@ -236,11 +236,11 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr th:each="issue : ${anomalyScoreList}">
-                        <td th:text="${issue.getTime()}"></td>
-                        <td th:text="${issue.getId()}"></td>
-                        <td th:text="${issue.getSensorId()}"></td>
-                        <td th:text="${issue.getScore()} "></td>
+                      <tr th:each="log : ${errorLogs}">
+                        <td th:text="${log.getTime()}"></td>
+                        <td th:text="${log.getMotorName()}"></td>
+                        <td th:text="${log.getScore()}"></td>
+                        <td th:text="${log.getScore()} "></td>
                       </tr>
                       </tbody>
                     </table>
