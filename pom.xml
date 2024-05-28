@@ -43,24 +43,11 @@
   <repositories>
     <repository>
       <id>release</id>
-      <url>https://github.com/nhnacademy-aiot1-T1/nhnacademy-common-maven-repo/raw/main/releases
-      </url>
+      <url>https://github.com/nhnacademy-aiot1-T1/nhnacademy-common-maven-repo/raw/main/releases</url>
     </repository>
   </repositories>
 
   <dependencies>
-    <dependency>
-      <groupId>com.nhnacademy</groupId>
-      <artifactId>common</artifactId>
-      <version>1.2.0-RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.nhn.dooray.messenger</groupId>
-      <artifactId>dooray-hook-sender</artifactId>
-      <version>1.2.0-RELEASE</version>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -112,6 +99,17 @@
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.nhnacademy</groupId>
+      <artifactId>common</artifactId>
+      <version>1.2.0-RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.nhn.dooray.messenger</groupId>
+      <artifactId>dooray-hook-sender</artifactId>
+      <version>1.2.0-RELEASE</version>
+    </dependency>
 
   </dependencies>
 
