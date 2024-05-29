@@ -1,10 +1,10 @@
 package live.aiotone.notification.config;
 
-import com.nhnacademy.common.config.MessageSenderConfig;
-import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-@Configuration
-public class CommonConfig extends MessageSenderConfig {
-
+@ComponentScan(basePackageClasses = com.nhnacademy.common.config.MessageSenderConfig.class)
+@Component
+public class CommonConfig {
 }
