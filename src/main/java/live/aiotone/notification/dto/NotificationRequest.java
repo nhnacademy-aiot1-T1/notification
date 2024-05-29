@@ -1,14 +1,11 @@
 package live.aiotone.notification.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class NotificationRequest {
   private final String sender;
   private final String message;
-
-  public NotificationRequest(String sender, String message) {
-    this.sender = sender;
-    this.message = message;
-  }
 }
