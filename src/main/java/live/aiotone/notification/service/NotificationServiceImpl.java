@@ -50,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
               .text(request.getMessage())
               .build()
       );
-      log.info("Dooray : Bot-%s, Text-%s", request.getSender(), request.getMessage());
+      log.info("[Dooray Message Sender] : BotName-'{}', Message-'{}'", request.getSender(), request.getMessage());
     } catch (Exception e) {
       throw new DoorayHookSenderSendException(e.getMessage());
     }
@@ -75,7 +75,7 @@ public class NotificationServiceImpl implements NotificationService {
       mimeMessage.setText(getContent(), "utf-8", "html");
 
       javaMailSender.send(mimeMessage);
-      log.info("Send Email : To-"+admin.getEmail());
+      log.info("[Email Sender] : To-'{}'", admin.getEmail());
     }
     return CommonResponse.success(null, "report sent to Email successfully");
   }
