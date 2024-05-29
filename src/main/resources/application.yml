@@ -17,3 +17,6 @@ spring:
     username:
     password:
     port: '587'
+
+server:
+  port: 8081

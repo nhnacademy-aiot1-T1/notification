@@ -1,5 +1,5 @@
 ### Dooray message send
-POST http://localhost:8080/notification-api/issue/dooray
+POST http://localhost:8081/notification-api/issue/dooray
 Content-Type: application/json
 
 {
@@ -8,5 +8,5 @@ Content-Type: application/json
 }
 
 ### email message send
-POST http://localhost:8080/notification-api/report/email
+POST http://localhost:8081/notification-api/report/email
 Content-Type: application/json
