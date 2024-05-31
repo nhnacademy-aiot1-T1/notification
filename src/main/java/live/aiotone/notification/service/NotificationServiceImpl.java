@@ -46,11 +46,11 @@ public class NotificationServiceImpl implements NotificationService {
     try {
       doorayHookSender.send(
           DoorayHook.builder()
-              .botName(request.getSender())
+              .botName(request.getBotName())
               .text(request.getMessage())
               .build()
       );
-      log.info("[Dooray Message Sender] : BotName-'{}', Message-'{}'", request.getSender(), request.getMessage());
+      log.info("[Dooray Message Sender] : BotName-'{}', Message-'{}'", request.getBotName(), request.getMessage());
     } catch (Exception e) {
       throw new DoorayHookSenderSendException(e.getMessage());
     }
