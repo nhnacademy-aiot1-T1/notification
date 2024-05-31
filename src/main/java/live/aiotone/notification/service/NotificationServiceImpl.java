@@ -25,6 +25,7 @@ import live.aiotone.notification.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -58,6 +59,7 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
+  @Scheduled(cron = "0 0 0 * * MON")
   public <T> CommonResponse<T> sendToEmail() throws Exception {
     MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
