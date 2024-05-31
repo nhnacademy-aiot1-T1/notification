@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class NotificationRequest {
-  private final String sender;
+  private final String botName;
   private final String message;
 }

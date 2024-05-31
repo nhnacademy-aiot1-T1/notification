@@ -28,4 +28,4 @@ spring:
       connection-timeout: '2000'
       connection-test-query: SELECT 1
   application:
-    name: account-service
+    name: notification-service
