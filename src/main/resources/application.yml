@@ -4,7 +4,7 @@ message:
 
 spring:
   profiles:
-    active: dev
+    active: prod
 
   mail:
     properties:
