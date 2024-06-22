@@ -3,7 +3,7 @@ POST http://localhost:8081/notification-api/issue/dooray
 Content-Type: application/json
 
 {
-  "sender": "test",
+  "botName": "test",
   "message": "test message"
 }
 
