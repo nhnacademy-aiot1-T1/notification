@@ -1,0 +1,22 @@
+message:
+  dooray:
+    hook-url:
+
+spring:
+  profiles:
+    active: prod
+
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username:
+    password:
+    port: '587'
+
+server:
+  port: 8081
